@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>区块链-maxF计算器</title>
+</head>
+<body class="hold-transition login-page">
+<div style="width:720px;margin:7% auto">
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="m-0">输入数据：</h5>
+                        </div>
+                        <div class="card-body">
+                            参数1：<input
+                                    id="param1"
+                                    type="text"
+                                    placeholder="请输入seita"
+                            />
+                            <br/>
+                            参数2：<input
+                                    id="param2"
+                                    type="text"
+                                    placeholder="请输入seiguma"
+                            />
+                            <br/>
+                            B：<input
+                                    id="b"
+                                    type="text"
+                                    placeholder="请输入B"
+                            />
+
+                            <h6 class="card-title">计算得到结果如下：</h6>
+                            <p class="card-text" id="result2"></p>
+                            <a
+                                    href="#"
+                                    class="btn btn-primary"
+                                    onclick="getResults()"
+                            >计算</a
+                            >
+                        </div>
+                    </div>
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="https://cdn.staticfile.org/jquery/1.12.0/jquery.min.js"></script>
+<script type="text/javascript">
+    function getResults() {
+        var param1 = $('param1').val();
+        var param2 = $('param2').val();
+        var b = $('b').val();
+        var data = {
+            param1: param1,
+            param2: param2,
+            b: b,
+        };
+        $.ajax({
+            type: 'POST', //方法类型
+            dataType: 'json', //预期服务器返回的数据类型
+            url: '/calculate/getmaxf',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data),
+            success: function (result) {
+                $('#result2').html(JSON.stringify(result));
+            },
+            error: function () {
+                $('#result2').html('接口异常，请联系Marin！');
+            },
+        });
+    }
+</script>
+</body>
+</html>
